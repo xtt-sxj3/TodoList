@@ -1,6 +1,6 @@
 <template>
   <TodoHeader @add-todo="handleAddTodo"></TodoHeader>
-  <TodoList></TodoList>
+  <TodoList :todos="todos"></TodoList>
   <TodoFooter></TodoFooter>
 </template>
 
@@ -15,9 +15,8 @@ const todos = ref([]);
 
 const handleAddTodo = todo => {
   todos.value.push(todo);
+  console.log(todos);
 };
-
-console.log(todos);
 </script>
 
 <style>
