@@ -3,7 +3,7 @@
     <input type="checkbox" :checked="done" @change="handleChange" />
     <input type="text" v-if="isEditing" :value="content" v-focus @blur="handleEdit" @keyup.enter="handleEdit" />
     <span v-else @click="isEditing = true">{{ content }}</span>
-    <button>删除</button>
+    <button @click="handleDelete">删除</button>
   </li>
 </template>
 <script setup>
@@ -24,7 +24,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['toggle', 'edit']);
+const emit = defineEmits(['toggle', 'edit','del']);
 
 //实现一个自定义的指令,约定:在setup中,如果一个变量为vFocus,就表示一个自定义指令
 //指令都是应用于dom元素的,可以扩展dom元素的功能
@@ -48,6 +48,10 @@ const handleEdit = event => {
   if (event.target.value.trim()) {
     emit('edit', props.id, event.target.value.trim());
   }
+};
+
+const handleDelete = () => {
+  emit('del', props.id);
 };
 </script>
 

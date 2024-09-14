@@ -1,9 +1,15 @@
 <template>
   <TodoHeader @add-todo="handleAddTodo"></TodoHeader>
   <TodoList>
-    <TodoItem v-for="todo in todos" :key="todo.id" v-bind="todo" @toggle="handleToggle" @edit="handleEdit"></TodoItem>
+    <TodoItem
+      v-for="todo in todos"
+      :key="todo.id"
+      v-bind="todo"
+      @toggle="handleToggle"
+      @edit="handleEdit"
+      @del="handleDeleteTodo"></TodoItem>
   </TodoList>
-  <TodoFooter></TodoFooter>
+  <TodoFooter :todos="todos" @toggle-all="handleToggleAll" @clear-done="handleClearDone" @clear-all="handleClearAll"></TodoFooter>
 </template>
 
 <script setup>
@@ -31,6 +37,23 @@ const handleToggle = (id, checked) => {
 const handleEdit = (id, content) => {
   const index = todos.value.findIndex(todo => todo.id === id);
   todos.value[index].content = content;
+};
+
+const handleToggleAll = checked => {
+  todos.value.forEach(todo => (todo.done = checked));
+};
+
+const handleDeleteTodo = id => {
+  const index = todos.value.findIndex(todo => todo.id === id);
+  todos.value.splice(index, 1);
+};
+
+const handleClearDone = () => {
+  todos.value = todos.value.filter(todo => !todo.done);
+};
+
+const handleClearAll = () => {
+  todos.value = [];
 };
 </script>
 
