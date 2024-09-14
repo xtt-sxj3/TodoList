@@ -3,7 +3,7 @@
     <ul>
       <li>
         <input type="checkbox" />
-        <span>吃饭</span>
+        <span>睡大觉</span>
         <button>删除</button>
       </li>
     </ul>
